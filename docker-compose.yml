@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    container_name: boilerplate_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes: 
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - boilerplate_network
+    ports:
+      - '${DATABASE_PORT}:5432'
+
+  api: 
+    build: .
+    container_name: boilerplate_api
+    restart: always
+    volumes:
+      - .:/home/boilerplate
+      - node_modules:/home/boilerplate/node_modules
+    networks:
+      - boilerplate_network
+    depends_on:
+      - postgres
+    ports:
+      - '${SERVER_PORT}:3000'
+  
+networks:
+  boilerplate_network:
+    driver: bridge
+
+volumes:
+  node_modules:  
