@@ -6,29 +6,16 @@ module.exports = {
   register: async (server) => {
     try {
       const options = {
-        ops: {
-          interval: 100000
-        },
-        includes: {
-          request: ['headers', 'payload'],
-          response: ['payload']
-        },
+        ops: { interval: 100000 },
+        includes: { request: ['headers', 'payload'], response: ['payload'] },
         reporters: {
           console: [
             {
               module: '@hapi/good-squeeze',
               name: 'Squeeze',
-              args: [
-                {
-                  // keep health checks from appearing in logs
-                  response: { exclude: 'nolog' },
-                  log: '*'
-                }
-              ]
+              args: [ { response: { exclude: 'nolog' }, log: '*' } ] // keep health checks from appearing in logs
             },
-            {
-              module: '@hapi/good-console'
-            },
+            { module: '@hapi/good-console' },
             'stdout'
           ],
           file: [{
@@ -57,6 +44,6 @@ module.exports = {
       console.log('Erro on logs plugin: ', error)
     }
   },
-  name: 'logs',
+  name: 'server-log',
   version: '1.0.0'
 }

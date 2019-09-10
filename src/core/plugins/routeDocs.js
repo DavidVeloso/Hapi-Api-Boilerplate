@@ -1,10 +1,7 @@
 module.exports = {
   register: async (server) => {
     try {
-      await server.register({
-        plugin: require('hapi-boom-decorators')
-      })
-
+      // Export routes docs only for prod env
       if (process.env.NODE_ENV !== 'production') {
         await server.register([
           require('@hapi/vision'),
@@ -12,9 +9,9 @@ module.exports = {
         ])
       }
     } catch (error) {
-      console.log('erro no utils: ', error)
+      console.log('-> Error util plugins: ', error)
     }
   },
-  name: 'utils',
+  name: 'route-docs',
   version: '1.0.0'
 }
