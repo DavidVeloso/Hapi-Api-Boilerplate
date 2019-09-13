@@ -1,7 +1,7 @@
 'use strict'
 
-const Lab = require('lab')
-const Code = require('code')
+const Lab = require('@hapi/lab')
+const Code = require('@hapi/code')
 const bootstrap = require('../core/bootstrap')
 const models = require('../models')
 const lab = exports.lab = Lab.script()

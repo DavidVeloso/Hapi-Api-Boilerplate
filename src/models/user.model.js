@@ -44,15 +44,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     },
 
-    inviteToken: {
+    emailVerificationToken: {
       type: DataTypes.STRING
     },
 
-    inviteSendAt: {
+    emailVerificationSendAt: {
       type: DataTypes.DATE
     },
 
-    inviteConfirmedAt: {
+    emailVerificationConfirmedAt: {
       type: DataTypes.DATE
     },
 
@@ -104,8 +104,9 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.toJSON = function () {
     let values = Object.assign({}, this.get())
     delete values.password
-    delete values.inviteSendAt
-    delete values.inviteConfirmedAt
+    delete values.emailVerificationToken
+    delete values.emailVerificationSendAt
+    delete values.emailVerificationConfirmedAt
     delete values.recoveryPasswordToken
     delete values.solRecoveryPasswordAt
     delete values.recoveryPasswordAt
