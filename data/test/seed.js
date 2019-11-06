@@ -1,11 +1,9 @@
 'use strict'
 
 const models = require('../../src/models')
-const data = require('./data')
+// const data = require('./data')
 
-module.exports = {
-  init
-}
+module.exports = { init }
 
 function init () {
   console.log('--> Init Seed')

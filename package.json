@@ -6,7 +6,8 @@
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/lab -l -v -m 60000 --pattern 'spec' src/test/index.spec.js src/modules",
     "start": "node index.js",
-    "dev": "nodemon -e js index.js"
+    "dev": "nodemon index.js",
+    "lint":  "standard"
   },
   "keywords": [
     "api"
@@ -39,6 +40,8 @@
   "devDependencies": {
     "@hapi/code": "^6.0.0",
     "@hapi/lab": "^19.1.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "sqlite3": "^4.1.0",
+    "standard": "^14.3.1"
   }
 }

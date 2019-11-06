@@ -102,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   User.prototype.toJSON = function () {
-    let values = Object.assign({}, this.get())
+    const values = Object.assign({}, this.get())
     delete values.password
     delete values.emailVerificationToken
     delete values.emailVerificationSendAt

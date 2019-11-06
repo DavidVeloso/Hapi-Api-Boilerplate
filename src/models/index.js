@@ -3,30 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
-
-require('dotenv').config()
-
-const sequelizeConfig = {
-  database: process.env.DATABASE_NAME,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  params: {
-    host: process.env.DATABASE_HOST,
-    dialect: 'postgres',
-    logging: false,
-    pool: {
-      idle: 60000
-    },
-    define: {
-      charset: 'utf8mb4',
-      freezeTableName: true,
-      paranoid: true,
-      defaultScope: {
-        attributes: { exclude: ['deletedAt'] }
-      }
-    }
-  }
-}
+const sequelizeConfig = require('../core/config/sequelize')
 
 const sequelize = new Sequelize(
   sequelizeConfig.database,
@@ -35,16 +12,12 @@ const sequelize = new Sequelize(
   sequelizeConfig.params
 )
 
-let db = {}
+const db = {}
 
-const basename = path.basename(module.filename)
+const basename = path.basename(module.filename) // index.js
 
-fs
-  .readdirSync(__dirname)
-  .filter(file =>
-    (file.indexOf('.') !== 0) &&
-    (file !== basename) &&
-    (file.slice(-3) === '.js'))
+fs.readdirSync(__dirname).filter(file =>
+  (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach(file => {
     const model = sequelize.import(path.join(__dirname, file))
     db[model.name] = model

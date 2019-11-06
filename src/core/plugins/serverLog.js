@@ -13,7 +13,7 @@ module.exports = {
             {
               module: '@hapi/good-squeeze',
               name: 'Squeeze',
-              args: [ { response: { exclude: 'nolog' }, log: '*' } ] // keep health checks from appearing in logs
+              args: [{ response: { exclude: 'nolog' }, log: '*' }] // keep health checks from appearing in logs
             },
             { module: '@hapi/good-console' },
             'stdout'

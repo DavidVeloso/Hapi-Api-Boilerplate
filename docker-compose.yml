@@ -15,14 +15,12 @@ services:
       - boilerplate_network
     ports:
       - '${DATABASE_PORT}:5432'
-
   api: 
     build: .
     container_name: boilerplate_api
     restart: always
     volumes:
       - .:/home/boilerplate
-      - node_modules:/home/boilerplate/node_modules
     networks:
       - boilerplate_network
     depends_on:
@@ -33,6 +31,3 @@ services:
 networks:
   boilerplate_network:
     driver: bridge
-
-volumes:
-  node_modules:  

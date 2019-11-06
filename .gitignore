@@ -60,7 +60,7 @@ package-lock.json
 t.js
 
 #Database
-pgdata/
+pgdata
 
 # Env
 .env

@@ -33,7 +33,7 @@ module.exports = {
       if (!joiError) {
         throw Boom.badImplementation('Something wrong..')
       }
-      let messages = []
+      const messages = []
       joiError.err.forEach(e => {
         const message = `${e.path[0]}: ${e.message}`
         if (!messages.includes(message)) {

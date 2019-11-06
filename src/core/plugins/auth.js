@@ -26,7 +26,7 @@ module.exports = {
     server.auth.strategy('jwt', 'jwt', {
       jwtSecretKey,
       validate,
-      verifyOptions: { algorithms: [ 'HS256' ] }
+      verifyOptions: { algorithms: ['HS256'] }
     })
     server.auth.default({
       strategy: 'jwt',

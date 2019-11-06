@@ -3,7 +3,7 @@
 const ENDPOINT_SIGNUP = '/v1/auth/signup'
 const ENDPOINT_LOGIN = '/v1/auth/login'
 
-describe(`#Auth`, () => {
+describe('#Auth', () => {
   describe(`POST ${ENDPOINT_SIGNUP}`, () => {
     it('create a new user', async () => {
       const response = await server.inject({

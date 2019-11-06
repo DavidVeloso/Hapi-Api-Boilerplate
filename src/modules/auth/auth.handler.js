@@ -41,7 +41,7 @@ async function login (request, reply) {
     }
 
     if (!user.active) {
-      return reply.unauthorized(`Your account isn't active.`)
+      return reply.unauthorized('Your account isn\'t active.')
     }
 
     const accessToken = generateAccessToken(user)
