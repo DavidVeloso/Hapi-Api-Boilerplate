@@ -6,13 +6,7 @@ const Sequelize = require('sequelize')
 const env = process.env.NODE_ENV || 'development'
 const sequelizeConfig = require('../core/config/sequelize')[env]
 
-const sequelize = new Sequelize(
-  sequelizeConfig.database,
-  sequelizeConfig.user,
-  sequelizeConfig.password,
-  sequelizeConfig.params
-)
-
+const sequelize = new Sequelize(sequelizeConfig.databaseUrl, sequelizeConfig.params)
 const db = {}
 
 const basename = path.basename(module.filename) // index.js

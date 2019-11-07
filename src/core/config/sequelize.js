@@ -1,16 +1,11 @@
 'use strict'
 
-const {
-  DATABASE_NAME, DATABASE_USER,
-  DATABASE_PASSWORD, DATABASE_HOST
-} = process.env
+const { DATABASE_URL, DATABASE_HOST } = process.env
 
 // Exports Sequelize config for each environment
 module.exports = {
   development: {
-    database: DATABASE_NAME,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
+    databaseUrl: DATABASE_URL,
     params: {
       host: DATABASE_HOST,
       dialect: 'postgres',
@@ -27,9 +22,7 @@ module.exports = {
     }
   },
   test: {
-    database: DATABASE_NAME,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
+    databaseUrl: DATABASE_URL,
     params: {
       dialect: 'sqlite',
       storage: './databaseTest.sqlite3',
