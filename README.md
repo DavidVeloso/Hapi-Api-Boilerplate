@@ -25,31 +25,31 @@ All the environment variables are managed using 'dotenv'.
 ## Application Structure
 ```
 ├── src
-│ ├── core                            // all important files for the system bootstrap
-│ │ └── config                    // general server config
-│ │ └── lib                         // helpers and custom libs
+│ ├── core                        // all important files for the system bootstrap
+│ │ └── config                   // general server config
+│ │ └── lib                     // helpers and custom libs
 │ │ └── plugins                // hapi ecosystems and custom plugins
 │ └── bootstrap.js            // load dependencies and execute server
 │ └── database.js            // manage database connection 
-│ └── server.js               // hapi server config
+│ └── server.js             // hapi server config
 │ ├── models               // all sequelize models are defined here
-│ ├── modules            // all entities divided by context
+│ ├── modules             // all entities divided by context
 │ │   └── entity
-│ │       └──test          // entity tests
+│ │       └──test       // entity tests
 │ │      │ └──entity.test.js
-│ │      └──entity.handler.js // business logic (controller)
+│ │      └──entity.handler.js  // business logic (controller)
 │ │      └──entity.routes.js  // entity routes
 │ │      └──entity.schema.js // entity validations
 │ ├── test               
-│ │  └──_util                  // helpers and data mocks
-│ │  └──index.spec.js     // set up test env
-├── index.js                   // call bootstrap file and start server
-├── logs                      // contains app log file
-├── scripts                  // shell scripts
+│ │  └──_util                   // helpers and data mocks
+│ │  └──index.spec.js          // set up test env
+├── index.js                  // call bootstrap file and start server
+├── logs                     // contains app log file
+├── scripts                 // shell scripts
 ├── .gitignore             // standard git ignore file
-├── Dockerfile           // Standard doceker file
-├── docker-compose.yml     // Standard docker compose file 
-├── .env.example               // dotenv exmaple configuration file for env variable 
+├── Dockerfile            // Standard doceker file
+├── docker-compose.yml   // Standard docker compose file 
+├── .env.example        // dotenv exmaple configuration file for env variable 
 
 ```
 
@@ -62,10 +62,10 @@ To set up environment variables, please copy '.env.example' file to '.env' file 
 
 ```
 NODE_ENV=development                          // Node environment 
-PORT=8000                                             // Server Port
-SERVER_HOST=0.0.0.0                             // Hapi Server host
+PORT=8000                                     // Server Port
+SERVER_HOST=0.0.0.0                           // Hapi Server host
 JWT_SECRET=ADD_STRONG_STRING_HERE
-ALLOWED_DOMAINS=http://localhost:8080    // (Cors) Add all domain origins allowed separated by comma
+ALLOWED_DOMAINS=http://localhost:8080         // (Cors) Add all domain origins allowed separated by comma
 DATABASE_URL=postgresql://DB_USER:DB_PASS@DB_HOST/DB_NAME    // PostgreSQL database url while using docker
 
 ```
@@ -79,7 +79,7 @@ Docker and docker compose must be installed on the system.
      $ docker-compose build
    ```
   3. Run conteiners:
-    ```shell 
+   ```shell 
      $ docker-compose up -d // use '-d' for run containers in the background
    ```
   4. To stop conteiners use:  
