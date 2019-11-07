@@ -3,7 +3,8 @@
 const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
-const sequelizeConfig = require('../core/config/sequelize')
+const env = process.env.NODE_ENV || 'development'
+const sequelizeConfig = require('../core/config/sequelize')[env]
 
 const sequelize = new Sequelize(
   sequelizeConfig.database,

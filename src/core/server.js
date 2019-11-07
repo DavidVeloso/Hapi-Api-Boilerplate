@@ -1,16 +1,22 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi')
-require('dotenv').config()
+const path = require('path')
+const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env'
+const envPath = path.resolve(`${__dirname}/../../${envFile}`)
+
+require('dotenv').config({ path: envPath })
+
+const { SERVER_HOST, SERVER_PORT, ALLOWED_DOMAINS } = process.env
 
 const init = async () => {
   const server = await new Hapi.Server({
-    host: process.env.SERVER_HOST,
-    port: process.env.SERVER_PORT,
+    host: SERVER_HOST,
+    port: SERVER_PORT,
     routes: {
       cors: {
         credentials: true,
-        origin: process.env.ALLOWED_DOMAINS.split(',')
+        origin: ALLOWED_DOMAINS.split(',')
       },
       validate: {
         options: {
@@ -24,6 +30,7 @@ const init = async () => {
 }
 
 function handleError (request, h, err) {
+  // Catch Joi Errors and send a custom response
   if (err.isJoi && Array.isArray(err.details) && err.details.length > 0) {
     const joiError = {
       type: 'Joi',

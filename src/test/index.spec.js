@@ -5,7 +5,8 @@ const Code = require('@hapi/code')
 const bootstrap = require('../core/bootstrap')
 const models = require('../models')
 const lab = exports.lab = Lab.script()
-// const utils = require('./utils')
+const seedData = require('./_utils/data/seed')
+
 global.expect = Code.expect
 
 global.it = lab.it
@@ -18,11 +19,12 @@ global.describe('#Load server', () => {
   global.before(async (done) => {
     try {
       const server = await bootstrap.start()
+      await seedData.init()
       global.server = server
       global.models = models
-      console.log('--> Server executed')
+      console.log('--> Test Server Ok!')
     } catch (error) {
-      console.log('Error loading bootstrap')
+      console.log('Error loading bootstrap: ', error)
       throw error
     }
   })

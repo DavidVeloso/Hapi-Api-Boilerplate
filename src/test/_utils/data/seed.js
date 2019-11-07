@@ -1,12 +1,12 @@
 'use strict'
 
-const models = require('../../src/models')
-// const data = require('./data')
+const models = require('../../../models')
+// const data = require('./mockData')
 
 module.exports = { init }
 
 function init () {
-  console.log('--> Init Seed')
+  console.log('--> Init Test Seed')
   return models.sequelize.sync({ force: true })
     .then()
     .then(finish => {

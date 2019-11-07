@@ -2,7 +2,6 @@
 
 const jwt = require('jsonwebtoken')
 const models = require('../../models')
-require('dotenv').config()
 
 module.exports = {
   signup,
@@ -45,6 +44,7 @@ async function login (request, reply) {
     }
 
     const accessToken = generateAccessToken(user)
+
     return { accessToken }
   } catch (error) {
     return reply.badImplementationCustom(error)
@@ -52,9 +52,9 @@ async function login (request, reply) {
 }
 
 function generateAccessToken (user) {
-  const jwtSecretKey = process.env.JWT_SECRET
+  const { JWT_SECRET } = process.env
   return jwt.sign({
     id: user.id,
     scope: [user.role]
-  }, jwtSecretKey, { expiresIn: '2d' })
+  }, JWT_SECRET, { expiresIn: '2d' })
 }
