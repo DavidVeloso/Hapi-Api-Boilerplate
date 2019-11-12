@@ -8,6 +8,8 @@ The boilerplate contains basic user management using JWT authentication with log
 
 Forgot password and e-mail change implementation use 'nodemailer' (sends an email with a action link with a unique token).
 
+For send emails using nodemailer in the development environment, we recommend [Mailtrap.io](https://mailtrap.io) that provides a full SMTP configuration. You can also use [nodemailer gmail](https://nodemailer.com/usage/using-gmail/) to send emails using your Gmail account.
+
 All the environment variables are managed using 'dotenv'.
 
 ## Technology
@@ -21,6 +23,8 @@ All the environment variables are managed using 'dotenv'.
 - **JWT** - Authentication mechanism for APIs
 - **Dotenv** - Environment variable emulator
 - **Good** - Logger mechanism
+- **Nodemailer** - Packege to send emails
+- **Handlebar** - HTML templating engine to create email templates
 
 ## Application Structure
 ```
@@ -66,8 +70,16 @@ PORT=8000                                     // Server Port
 SERVER_HOST=0.0.0.0                           // Hapi Server host
 JWT_SECRET=ADD_STRONG_STRING_HERE
 ALLOWED_DOMAINS=http://localhost:8080         // (Cors) Add all domain origins allowed separated by comma
+
 DATABASE_URL=postgresql://DB_USER:DB_PASS@DB_HOST/DB_NAME    // PostgreSQL database url while using docker
 
+# MAIL
+MAIL_SENDER_NAME=Company name 
+MAIL_SENDER_EMAIL=comany@mail.com
+MAIL_HOST=smtp.YourMailService.com // smtp service url
+MAIL_PORT=  // smtp service port
+MAIL_USER=  // smtp service user
+MAIL_PASS=  // smtp service password
 ```
 
 ## Running the server in Docker Container

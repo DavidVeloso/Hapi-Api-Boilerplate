@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test ./node_modules/.bin/lab -l -v -m 60000 --pattern 'spec' src/test/index.spec.js src/modules",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "lint":  "standard"
+    "lint": "standard"
   },
   "keywords": [
     "api"
@@ -26,11 +26,13 @@
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.0.0",
+    "handlebars": "^4.5.1",
     "hapi-auth-jwt2": "^8.6.1",
     "hapi-router": "^5.0.0",
     "hapi-swagger": "^10.0.2",
     "jsonwebtoken": "^8.5.1",
     "lout": "^11.2.3",
+    "nodemailer": "^6.3.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "rotating-file-stream": "^1.4.3",
