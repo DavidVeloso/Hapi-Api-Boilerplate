@@ -1,11 +1,16 @@
 'use strict'
 
+const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
+
 const models = require('../../models')
+const { sendMail } = require('../../core/lib/mail')
 
 module.exports = {
   signup,
-  login
+  login,
+  requestRecoveryPassword,
+  confirmRecoveryPassword
 }
 
 async function signup (request, reply) {
@@ -46,6 +51,61 @@ async function login (request, reply) {
     const accessToken = generateAccessToken(user)
 
     return { accessToken }
+  } catch (error) {
+    return reply.badImplementationCustom(error)
+  }
+}
+
+async function requestRecoveryPassword (request, reply) {
+  try {
+    const { email } = request.payload
+    const user = await models.User.findOne({ where: { email } })
+
+    if (!user) {
+      return reply.notFound('User not found.')
+    }
+
+    const token = crypto.randomBytes(32).toString('hex')
+
+    await user.update({
+      recoveryPasswordToken: token,
+      solRecoveryPasswordAt: new Date()
+    })
+
+    sendMail({
+      templateName: 'requestRecoveryPassword',
+      sendMailTo: user.email,
+      data: {
+        nome: user.firstName,
+        // Insert here your client url that will show the form to set the new password
+        // ex.: http://yourdomain.com/recoverypassword?token=XXXXXX
+        recoveryLink: `${process.env.CLIENT_HOST}/INSERT_CLIENT_ROUTE?token=${token}`
+      }
+    })
+
+    return { message: 'OK' }
+  } catch (error) {
+    return reply.badImplementationCustom(error)
+  }
+}
+
+async function confirmRecoveryPassword (request, reply) {
+  try {
+    const { newPassword, recoveryPasswordToken } = request.payload
+    const user = await models.User.findOne({ where: { recoveryPasswordToken } })
+
+    if (!user) {
+      return reply.notFound('Recovery Token not found.')
+    }
+
+    await user.update({
+      recoveryPasswordToken: null,
+      solRecoveryPasswordAt: null,
+      recoveryPasswordAt: new Date(),
+      password: newPassword
+    })
+
+    return { message: 'OK' }
   } catch (error) {
     return reply.badImplementationCustom(error)
   }
