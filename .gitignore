@@ -62,6 +62,7 @@ t.js
 #Database
 pgdata
 databaseTest.sqlite3
+redisdata
 
 # Env
 .env

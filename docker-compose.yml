@@ -25,8 +25,21 @@ services:
       - boilerplate_network
     depends_on:
       - postgres
+      - redis
     ports:
       - '${SERVER_PORT}:3000'
+  redis:
+    image: 'bitnami/redis'
+    container_name: boilerplate_redis
+    restart: always
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+      - './redisdata:/bitnami/redis/data' #Path to persisting your database
+    networks:
+      - boilerplate_network
+    ports:
+      - '${REDIS_PORT}:6379'
   
 networks:
   boilerplate_network:

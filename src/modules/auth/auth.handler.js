@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 
 const models = require('../../models')
-const { sendMail } = require('../../core/lib/mail')
+const Queue = require('../../core/lib/queueBull')
 
 module.exports = {
   signup,
@@ -72,7 +72,7 @@ async function requestRecoveryPassword (request, reply) {
       solRecoveryPasswordAt: new Date()
     })
 
-    sendMail({
+    Queue.add('sendMail', {
       templateName: 'requestRecoveryPassword',
       sendMailTo: user.email,
       data: {

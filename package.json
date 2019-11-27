@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/lab -l -v -m 60000 --pattern 'spec' src/test/index.spec.js src/modules",
+    "lint": "standard",
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "lint": "standard"
+    "dev": "npm-run-all -p dev:*",
+    "dev:server": "nodemon index.js",
+    "dev:queue": "nodemon src/core/queue.js",
+    "test": "NODE_ENV=test ./node_modules/.bin/lab -l -v -m 60000 --pattern 'spec' src/test/index.spec.js src/modules"
   },
   "keywords": [
     "api"
@@ -25,6 +27,7 @@
     "@hapi/vision": "5.5.2",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
+    "bull": "^3.12.0",
     "dotenv": "^8.0.0",
     "handlebars": "^4.5.1",
     "hapi-auth-jwt2": "^8.6.1",
@@ -43,6 +46,7 @@
     "@hapi/code": "^6.0.0",
     "@hapi/lab": "^19.1.0",
     "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5",
     "sqlite3": "^4.1.0",
     "standard": "^14.3.1"
   }
