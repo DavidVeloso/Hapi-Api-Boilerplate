@@ -1,12 +1,12 @@
 ## Hapi.js boilerplate
-REST API Boilerplate using  Hapi.js v17.
+REST API Boilerplate using Hapi.js v17.
 
 ## Description
 This boilerplate app serves as a starting point for developers who were looking for a platform for their REST API.
 
-The boilerplate contains basic user management using JWT authentication with login, logout, password reset and profile view.
+The boilerplate contains basic user management using JWT authentication with login, logout, password reset and profile view. 'Forgot password' and 'Email change' implementations send an email with an activation link with a unique token to complete the action.
 
-Forgot password and e-mail change implementation use 'nodemailer' (sends an email with a action link with a unique token).
+This boilerplate also provides a Queue system using [Bull](https://github.com/OptimalBits/bull) to manage background jobs, an email service using [Nodemailer](https://nodemailer.com) and a [Redis](https://redis.io/) instance to cache data and store queue jobs.
 
 For send emails using nodemailer in the development environment, we recommend [Mailtrap.io](https://mailtrap.io) that provides a full SMTP configuration. You can also use [nodemailer gmail](https://nodemailer.com/usage/using-gmail/) to send emails using your Gmail account.
 
@@ -18,6 +18,8 @@ All the environment variables are managed using 'dotenv'.
 - **Docker** - Docker container support
 - **Sequelize** - Database ORM
 - **PostgreSQL** - SQL Database
+- **Redis** - In-memory data structure store
+- **Bull** - Premium Queue package for handling distributed jobs
 - **Lab** - Unit test framework
 - **Joi** - Schema validation
 - **JWT** - Authentication mechanism for APIs
@@ -29,15 +31,17 @@ All the environment variables are managed using 'dotenv'.
 ## Application Structure
 ```
 ├── src
-│ ├── core                        // all important files for the system bootstrap
-│ │ └── config                   // general server config
-│ │ └── lib                     // helpers and custom libs
-│ │ └── plugins                // hapi ecosystems and custom plugins
+│ ├── core                         // all important files for the system bootstrap
+│ │ └── config                    // general server config
+│ │ └── lib                      // helpers and libs configuration (nodemailer, bull queue)
+│ │ └── plugins                 // hapi ecosystems and custom plugins
+│ │ └── jobs                   // jobs to run into queue service
 │ └── bootstrap.js            // load dependencies and execute server
 │ └── database.js            // manage database connection 
 │ └── server.js             // hapi server config
-│ ├── models               // all sequelize models are defined here
-│ ├── modules             // all entities divided by context
+│ └── queue.js             // queue service start file
+│ ├── models              // all sequelize models are defined here
+│ ├── modules            // all entities divided by context
 │ │   └── entity
 │ │       └──test       // entity tests
 │ │      │ └──entity.test.js
@@ -65,13 +69,13 @@ We're using [JavaScript Standard Style](https://standardjs.com) as a code conven
 To set up environment variables, please copy '.env.example' file to '.env' file at the root location and define the following properties:
 
 ```
-NODE_ENV=development                          // Node environment 
-PORT=8000                                     // Server Port
-SERVER_HOST=0.0.0.0                           // Hapi Server host
-JWT_SECRET=ADD_STRONG_STRING_HERE
-ALLOWED_DOMAINS=http://localhost:8080         // (Cors) Add all domain origins allowed separated by comma
+NODE_ENV=development                      // Node environment 
+PORT=8000                                // Server Port
+SERVER_HOST=0.0.0.0                     // Hapi Server host
+JWT_SECRET=ADD_STRONG_STRING_HERE      // Jwt secret key
+ALLOWED_DOMAINS=http://localhost:8080 // (Cors) Add all allowed domains origins separated by a comma
 
-DATABASE_URL=postgresql://DB_USER:DB_PASS@DB_HOST/DB_NAME    // PostgreSQL database url while using docker
+DATABASE_URL=postgresql://DB_USER:DB_PASS@DB_HOST/DB_NAME // PostgreSQL database url while using docker
 
 # MAIL
 MAIL_SENDER_NAME=Company name 
@@ -80,6 +84,11 @@ MAIL_HOST=smtp.YourMailService.com // smtp service url
 MAIL_PORT=  // smtp service port
 MAIL_USER=  // smtp service user
 MAIL_PASS=  // smtp service password
+
+# Redis
+REDIS_HOST=redis    
+REDIS_PASSWORD=InsertRedisPass
+REDIS_PORT=6379
 ```
 
 ## Running the server in Docker Container
