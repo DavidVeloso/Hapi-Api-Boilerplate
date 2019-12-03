@@ -29,6 +29,7 @@
     "bcryptjs": "^2.4.3",
     "bull": "^3.12.0",
     "dotenv": "^8.0.0",
+    "fs-extra": "^8.1.0",
     "handlebars": "^4.5.1",
     "hapi-auth-jwt2": "^8.6.1",
     "hapi-router": "^5.0.0",
@@ -40,6 +41,7 @@
     "pg-hstore": "^2.3.3",
     "rotating-file-stream": "^1.4.3",
     "sequelize": "^5.18.0",
+    "uuid": "^3.3.3",
     "xlr": "^0.5.1"
   },
   "devDependencies": {
