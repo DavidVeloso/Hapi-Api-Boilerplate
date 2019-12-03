@@ -23,11 +23,13 @@ async function validate (decoded, request) {
 module.exports = {
   register: async (server) => {
     await server.register(jwt)
+
     server.auth.strategy('jwt', 'jwt', {
-      jwtSecretKey,
+      key: jwtSecretKey,
       validate,
       verifyOptions: { algorithms: ['HS256'] }
     })
+
     server.auth.default({
       strategy: 'jwt',
       scope: ['user', 'admin']
